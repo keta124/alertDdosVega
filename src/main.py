@@ -9,6 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from core.detect_cliptv_ddos import *
 from core.detect_tcp_ddos import *
 from core.detect_udp_ddos import *
+import threading
+import time
 
 state_cliptv=[0,0,0]
 state_tcp=[0,0,0]
@@ -18,7 +20,6 @@ def update_state():
     global state_cliptv
     global state_tcp        
     global state_udp
-
     while True:
         time.sleep(2000)
         state_cliptv=[0,0,0]
@@ -30,58 +31,22 @@ def sleep_send_notify():
         global state_cliptv
         global state_tcp        
         global state_udp
-        
         while True:
-            # udp
-            status_wait=alert_udp(level=3,state = state_udp)
-            state_udp =status_wait
-            time.sleep(5)
-
-            status_wait=alert_udp(level=2,state = state_udp)
-            state_udp =status_wait
-            time.sleep(5)
-                
-            status_wait=alert_udp(level=1,state = state_udp)
-            state_udp=status_wait
-            time.sleep(5)
-            
-            ### tcp
-            status_wait=alert_tcp(level=3,state = state_tcp)
-            state_tcp =status_wait
-            time.sleep(5)
-    
-            status_wait=alert_tcp(level=2,state = state_tcp)
-            state_tcp =status_wait
-            time.sleep(5)
-                
-            status_wait=alert_tcp(level=1,state = state_tcp)
-            state_tcp=status_wait
-            time.sleep(5)
-            
-            ### cliptv
-            status_wait=alert_cliptv(level=3,state = state_cliptv)
-            state_cliptv =status_wait
-            time.sleep(5)
-    
-            status_wait=alert_cliptv(level=2,state = state_cliptv)
-            state_cliptv =status_wait
-            time.sleep(5)
-                
-            status_wait=alert_cliptv(level=1,state = state_cliptv)
-            state_cliptv=status_wait
-            time.sleep(5)
-            print '___ ROTATE  ___ '
-            break
+            for level in (1,2,3):
+                state_udp=alert_udp(level,state_udp)
+                state_tcp=alert_tcp(level,state_tcp)
+                state_cliptv=alert_cliptv(level,state_cliptv)
+                time.sleep(60)
     except:
         print '___ EXCEPT SLEEP SEND EMAIL ___'
 
 
 if __name__ == '__main__':
     try:
-        sleep_send_notify()
-        #t = threading.Thread(target=sleep_send_notify, args = ())
-        #t.start()
-        #th = threading.Thread(target=sleep_send_notify, args = ())
-        #th.start()
+        update_state()
+        t = threading.Thread(target=sleep_send_notify, args = ())
+        t.start()
+        th = threading.Thread(target=update_state, args = ())
+        th.start()
     except:
         print 'ERROR MAIN'

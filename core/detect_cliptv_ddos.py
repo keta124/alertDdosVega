@@ -33,7 +33,7 @@ def alert_cliptv(level,state):
                     filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_cliptv_level3.txt"
                     file_w = File_RW(filetxt,ip_source)
                     file_w.writefile()
-                    link_http = "http://103.216.122.101:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
+                    link_http = "http://ids.ovp.vn:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
                     hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     list_server_attacked.append(hostname_full)
                         
@@ -64,7 +64,7 @@ def alert_cliptv(level,state):
                         filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_cliptv_level2.txt"
                         file_w = File_RW(filetxt,ip_source)
                         file_w.writefile()
-                        link_http = "http://103.216.122.101:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
+                        link_http = "http://ids.ovp.vn:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
                         hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     	list_server_attacked.append(hostname_full)
             # Send Email
@@ -89,7 +89,7 @@ def alert_cliptv(level,state):
                         filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_cliptv_level1.txt"
                         file_w = File_RW(filetxt,ip_source)
                         file_w.writefile()
-                        link_http = "http://103.216.122.101:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
+                        link_http = "http://ids.ovp.vn:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
                         hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     	list_server_attacked.append(hostname_full)
             if state[2] == 0 and len(list_server_attacked)>0:
@@ -100,5 +100,5 @@ def alert_cliptv(level,state):
                 state[2] =1
             return state
     except:
-	print 'EXCEPT DETECT CLIP'
-        return [0,0,0]
+        print 'EXCEPT DETECT CLIP'
+        return [1,1,1]
