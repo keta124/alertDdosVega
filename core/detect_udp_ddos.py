@@ -34,7 +34,7 @@ def alert_udp(level,state):
                     filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_udp_level3.txt"
                     file_w = File_RW(filetxt,ip_source)
                     file_w.writefile()
-                    link_http = "http://ids.ovp.vn:8006/output/"+filetxt+"   (admin/Vega123312##)"
+                    link_http = "http://ids.ovp.vn:8006/"+filetxt+"   (admin/Vega123312##)"
                     hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     list_server_attacked.append(hostname_full)
                     ### Send Sms
@@ -66,7 +66,7 @@ def alert_udp(level,state):
                         filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_udp_level2.txt"
                         file_w = File_RW(filetxt,ip_source)
                         file_w.writefile()
-                        link_http = "http://ids.ovp.vn:8006/output/"+filetxt+"   (admin/Vega123312##)"
+                        link_http = "http://ids.ovp.vn:8006/"+filetxt+"   (admin/Vega123312##)"
                         hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     	list_server_attacked.append(hostname_full)
             # Send Email
@@ -91,7 +91,7 @@ def alert_udp(level,state):
                         filetxt = str(time.strftime('%Y%m%d_', time.localtime()))+str(list_ip_attacked[i]["key"])+"_udp_level1.txt"
                         file_w = File_RW(filetxt,ip_source)
                         file_w.writefile()
-                        link_http = "http://ids.ovp.vn:8006/security/output/"+filetxt+"   (admin/Vega123312##)"
+                        link_http = "http://ids.ovp.vn:8006/"+filetxt+"   (admin/Vega123312##)"
                         hostname_full = hostname +"\n"+"- List source IP blacklist\n"+link_http+ "\n\n"
                     	list_server_attacked.append(hostname_full)
             if state[2] == 0 and len(list_server_attacked)>0:

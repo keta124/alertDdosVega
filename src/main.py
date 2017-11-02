@@ -43,7 +43,6 @@ def sleep_send_notify():
 
 if __name__ == '__main__':
     try:
-        update_state()
         t = threading.Thread(target=sleep_send_notify, args = ())
         t.start()
         th = threading.Thread(target=update_state, args = ())
